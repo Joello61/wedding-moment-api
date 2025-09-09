@@ -33,7 +33,7 @@ class Quiz
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::JSON)]
+    #[ORM\Column(type: Types::JSON, columnDefinition: "jsonb")]
     #[Assert\NotNull]
     private ?array $questionsJson = null;
 

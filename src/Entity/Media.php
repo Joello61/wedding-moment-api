@@ -69,7 +69,7 @@ class Media
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[ORM\Column(type: Types::JSON, nullable: true, columnDefinition: "jsonb")]
     private ?array $tags = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]

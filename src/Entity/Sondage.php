@@ -37,7 +37,7 @@ class Sondage
     #[ORM\Column(type: Types::STRING, length: 15, enumType: TypeSondage::class)]
     private TypeSondage $typeSondage;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[ORM\Column(type: Types::JSON, nullable: true, columnDefinition: "jsonb")]
     private ?array $optionsJson = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]

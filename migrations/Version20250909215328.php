@@ -1,0 +1,250 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DoctrineMigrations;
+
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
+
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+final class Version20250909215328 extends AbstractMigration
+{
+    public function getDescription(): string
+    {
+        return '';
+    }
+
+    public function up(Schema $schema): void
+    {
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE TABLE blog_posts (id UUID NOT NULL, couple_id UUID NOT NULL, titre VARCHAR(255) NOT NULL, contenu TEXT NOT NULL, image_principale TEXT DEFAULT NULL, statut VARCHAR(10) NOT NULL, date_publication TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_78B2F932F66468CA ON blog_posts (couple_id)');
+        $this->addSql('CREATE INDEX idx_blog_couple_statut ON blog_posts (couple_id, statut)');
+        $this->addSql('COMMENT ON COLUMN blog_posts.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN blog_posts.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE cagnottes (id UUID NOT NULL, couple_id UUID NOT NULL, nom_cagnotte VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, objectif_montant NUMERIC(10, 2) DEFAULT NULL, montant_actuel NUMERIC(10, 2) NOT NULL, image_cagnotte TEXT DEFAULT NULL, lien_paiement TEXT DEFAULT NULL, actif BOOLEAN NOT NULL, ordre_affichage INT DEFAULT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_9E08BD14F66468CA ON cagnottes (couple_id)');
+        $this->addSql('COMMENT ON COLUMN cagnottes.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN cagnottes.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE contributions_cadeaux (id UUID NOT NULL, invite_id UUID NOT NULL, cadeau_id UUID DEFAULT NULL, cagnotte_id UUID DEFAULT NULL, montant NUMERIC(10, 2) DEFAULT NULL, message TEXT DEFAULT NULL, statut VARCHAR(10) NOT NULL, date_contribution TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_confirmation TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, date_livraison TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, notes_admin TEXT DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_3DFC1573EA417747 ON contributions_cadeaux (invite_id)');
+        $this->addSql('CREATE INDEX IDX_3DFC1573D9D5ED84 ON contributions_cadeaux (cadeau_id)');
+        $this->addSql('CREATE INDEX IDX_3DFC157315105EB8 ON contributions_cadeaux (cagnotte_id)');
+        $this->addSql('COMMENT ON COLUMN contributions_cadeaux.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN contributions_cadeaux.invite_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN contributions_cadeaux.cadeau_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN contributions_cadeaux.cagnotte_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE couples (id UUID NOT NULL, nom_marie VARCHAR(255) NOT NULL, prenom_marie VARCHAR(255) NOT NULL, nom_marie_conjoint VARCHAR(255) NOT NULL, prenom_marie_conjoint VARCHAR(255) NOT NULL, email_admin VARCHAR(255) NOT NULL, mot_de_passe VARCHAR(255) NOT NULL, date_mariage DATE NOT NULL, heure_ceremonie TIME(0) WITHOUT TIME ZONE DEFAULT NULL, lieu_ceremonie TEXT DEFAULT NULL, adresse_ceremonie TEXT DEFAULT NULL, lieu_reception TEXT DEFAULT NULL, adresse_reception TEXT DEFAULT NULL, domaine_personnalise VARCHAR(255) DEFAULT NULL, sous_domaine VARCHAR(255) DEFAULT NULL, theme_couleur_primaire VARCHAR(7) DEFAULT NULL, theme_couleur_secondaire VARCHAR(7) DEFAULT NULL, theme_police VARCHAR(255) DEFAULT NULL, photo_couple_principale TEXT DEFAULT NULL, statut VARCHAR(10) NOT NULL, modules_actifs jsonb, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_14D6768A15434CF9 ON couples (email_admin)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_14D6768ABE7669B7 ON couples (domaine_personnalise)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_14D6768A5BA67281 ON couples (sous_domaine)');
+        $this->addSql('CREATE INDEX idx_couples_modules_gin ON couples USING gin (modules_actifs jsonb_ops)');
+        $this->addSql('COMMENT ON COLUMN couples.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE faq (id UUID NOT NULL, couple_id UUID NOT NULL, question TEXT NOT NULL, reponse TEXT NOT NULL, categorie VARCHAR(255) DEFAULT NULL, ordre_affichage INT DEFAULT NULL, actif BOOLEAN NOT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_E8FF75CCF66468CA ON faq (couple_id)');
+        $this->addSql('COMMENT ON COLUMN faq.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN faq.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE galeries (id UUID NOT NULL, couple_id UUID NOT NULL, nom VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, type VARCHAR(15) NOT NULL, couverture TEXT DEFAULT NULL, ordre_affichage INT DEFAULT NULL, actif BOOLEAN NOT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_EB9F215AF66468CA ON galeries (couple_id)');
+        $this->addSql('COMMENT ON COLUMN galeries.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN galeries.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE histoire_couple (id UUID NOT NULL, couple_id UUID NOT NULL, titre VARCHAR(255) NOT NULL, contenu TEXT NOT NULL, date_evenement DATE DEFAULT NULL, photo TEXT DEFAULT NULL, ordre_affichage INT DEFAULT NULL, actif BOOLEAN NOT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_4C02D557F66468CA ON histoire_couple (couple_id)');
+        $this->addSql('COMMENT ON COLUMN histoire_couple.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN histoire_couple.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE invites (id UUID NOT NULL, couple_id UUID NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, email VARCHAR(255) DEFAULT NULL, telephone VARCHAR(20) DEFAULT NULL, type_invite VARCHAR(10) DEFAULT NULL, accompagnant_autorise BOOLEAN NOT NULL, nombre_accompagnants_max INT NOT NULL, qr_code_token VARCHAR(255) DEFAULT NULL, statut_rsvp VARCHAR(10) DEFAULT NULL, nombre_accompagnants_confirmes INT NOT NULL, restrictions_alimentaires TEXT DEFAULT NULL, commentaire_rsvp TEXT DEFAULT NULL, date_rsvp TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, present_ceremonie BOOLEAN NOT NULL, present_reception BOOLEAN NOT NULL, heure_arrivee TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, avatar TEXT DEFAULT NULL, message_couple TEXT DEFAULT NULL, photo_video_partage TEXT DEFAULT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_37E6A6C1BC9050B ON invites (qr_code_token)');
+        $this->addSql('CREATE INDEX idx_invites_couple_id ON invites (couple_id)');
+        $this->addSql('CREATE INDEX idx_invites_qr_code ON invites (qr_code_token)');
+        $this->addSql('CREATE INDEX idx_invites_couple_statut ON invites (couple_id, statut_rsvp)');
+        $this->addSql('COMMENT ON COLUMN invites.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN invites.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE liste_cadeaux (id UUID NOT NULL, couple_id UUID NOT NULL, nom_cadeau VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, prix_estime NUMERIC(10, 2) DEFAULT NULL, lien_achat TEXT DEFAULT NULL, image_cadeau TEXT DEFAULT NULL, priorite VARCHAR(10) DEFAULT NULL, categorie VARCHAR(100) DEFAULT NULL, quantite_souhaitee INT NOT NULL, quantite_recue INT NOT NULL, actif BOOLEAN NOT NULL, ordre_affichage INT DEFAULT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_7069CEBEF66468CA ON liste_cadeaux (couple_id)');
+        $this->addSql('COMMENT ON COLUMN liste_cadeaux.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN liste_cadeaux.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE livre_or (id UUID NOT NULL, couple_id UUID NOT NULL, invite_id UUID DEFAULT NULL, nom_auteur VARCHAR(255) NOT NULL, email_auteur VARCHAR(255) DEFAULT NULL, message TEXT NOT NULL, photo_associee TEXT DEFAULT NULL, approuve BOOLEAN NOT NULL, date_message TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_9557371CF66468CA ON livre_or (couple_id)');
+        $this->addSql('CREATE INDEX IDX_9557371CEA417747 ON livre_or (invite_id)');
+        $this->addSql('COMMENT ON COLUMN livre_or.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN livre_or.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN livre_or.invite_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE logs_activite (id UUID NOT NULL, couple_id UUID NOT NULL, utilisateur_id UUID DEFAULT NULL, type_utilisateur VARCHAR(15) DEFAULT NULL, action VARCHAR(100) NOT NULL, details_json JSON DEFAULT NULL, adresse_ip inet DEFAULT NULL, user_agent TEXT DEFAULT NULL, date_action TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_D5D66FA5F66468CA ON logs_activite (couple_id)');
+        $this->addSql('COMMENT ON COLUMN logs_activite.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN logs_activite.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN logs_activite.utilisateur_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE medias (id UUID NOT NULL, galerie_id UUID NOT NULL, invite_id UUID DEFAULT NULL, nom_fichier VARCHAR(255) NOT NULL, url_fichier TEXT NOT NULL, url_miniature TEXT DEFAULT NULL, type_media VARCHAR(10) NOT NULL, taille_fichier BIGINT DEFAULT NULL, format VARCHAR(10) DEFAULT NULL, largeur INT DEFAULT NULL, hauteur INT DEFAULT NULL, duree INT DEFAULT NULL, description TEXT DEFAULT NULL, tags jsonb, approuve BOOLEAN NOT NULL, ordre_affichage INT DEFAULT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_12D2AF81EA417747 ON medias (invite_id)');
+        $this->addSql('CREATE INDEX idx_medias_galerie_id ON medias (galerie_id)');
+        $this->addSql('CREATE INDEX idx_medias_tags_gin ON medias USING gin (tags jsonb_ops)');
+        $this->addSql('CREATE INDEX idx_medias_galerie_type ON medias (galerie_id, type_media)');
+        $this->addSql('COMMENT ON COLUMN medias.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN medias.galerie_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN medias.invite_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE messages_prives (id UUID NOT NULL, couple_id UUID NOT NULL, expediteur_id UUID NOT NULL, objet VARCHAR(255) DEFAULT NULL, contenu TEXT NOT NULL, lu BOOLEAN NOT NULL, date_envoi TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_lecture TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_3944A654F66468CA ON messages_prives (couple_id)');
+        $this->addSql('CREATE INDEX IDX_3944A65410335F61 ON messages_prives (expediteur_id)');
+        $this->addSql('COMMENT ON COLUMN messages_prives.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN messages_prives.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN messages_prives.expediteur_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE notifications (id UUID NOT NULL, couple_id UUID NOT NULL, invite_id UUID DEFAULT NULL, type_notification VARCHAR(25) NOT NULL, titre VARCHAR(255) NOT NULL, contenu TEXT DEFAULT NULL, lu BOOLEAN NOT NULL, lien_action TEXT DEFAULT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_lecture TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_6000B0D3F66468CA ON notifications (couple_id)');
+        $this->addSql('CREATE INDEX IDX_6000B0D3EA417747 ON notifications (invite_id)');
+        $this->addSql('CREATE INDEX idx_notifications_couple_invite ON notifications (couple_id, invite_id)');
+        $this->addSql('COMMENT ON COLUMN notifications.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN notifications.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN notifications.invite_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE organisateurs (id UUID NOT NULL, couple_id UUID NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, mot_de_passe VARCHAR(255) NOT NULL, role VARCHAR(20) NOT NULL, permissions JSON DEFAULT NULL, actif BOOLEAN NOT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_6AF49DEFF66468CA ON organisateurs (couple_id)');
+        $this->addSql('COMMENT ON COLUMN organisateurs.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN organisateurs.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE playlist_suggestions (id UUID NOT NULL, couple_id UUID NOT NULL, invite_id UUID NOT NULL, titre_chanson VARCHAR(255) NOT NULL, artiste VARCHAR(255) NOT NULL, lien_spotify TEXT DEFAULT NULL, lien_youtube TEXT DEFAULT NULL, genre VARCHAR(100) DEFAULT NULL, statut VARCHAR(10) NOT NULL, date_suggestion TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_B47B003BF66468CA ON playlist_suggestions (couple_id)');
+        $this->addSql('CREATE INDEX IDX_B47B003BEA417747 ON playlist_suggestions (invite_id)');
+        $this->addSql('COMMENT ON COLUMN playlist_suggestions.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN playlist_suggestions.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN playlist_suggestions.invite_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE programme (id UUID NOT NULL, couple_id UUID NOT NULL, titre VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, heure_debut TIME(0) WITHOUT TIME ZONE NOT NULL, heure_fin TIME(0) WITHOUT TIME ZONE DEFAULT NULL, lieu VARCHAR(255) DEFAULT NULL, type_activite VARCHAR(10) DEFAULT NULL, ordre_affichage INT DEFAULT NULL, actif BOOLEAN NOT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_3DDCB9FFF66468CA ON programme (couple_id)');
+        $this->addSql('COMMENT ON COLUMN programme.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN programme.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE quiz (id UUID NOT NULL, couple_id UUID NOT NULL, titre VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, questions_json jsonb, actif BOOLEAN NOT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_A412FA92F66468CA ON quiz (couple_id)');
+        $this->addSql('CREATE INDEX idx_quiz_questions_gin ON quiz USING gin (questions_json jsonb_ops)');
+        $this->addSql('COMMENT ON COLUMN quiz.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN quiz.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE reponses_sondages (id UUID NOT NULL, sondage_id UUID NOT NULL, invite_id UUID NOT NULL, reponse TEXT DEFAULT NULL, date_reponse TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_CE54F638BAF4AE56 ON reponses_sondages (sondage_id)');
+        $this->addSql('CREATE INDEX IDX_CE54F638EA417747 ON reponses_sondages (invite_id)');
+        $this->addSql('CREATE UNIQUE INDEX uq_sondage_invite ON reponses_sondages (sondage_id, invite_id)');
+        $this->addSql('COMMENT ON COLUMN reponses_sondages.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN reponses_sondages.sondage_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN reponses_sondages.invite_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE resultats_quiz (id UUID NOT NULL, quiz_id UUID NOT NULL, invite_id UUID NOT NULL, score INT DEFAULT NULL, reponses_json JSON DEFAULT NULL, temps_completion INT DEFAULT NULL, date_completion TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_C596EA16853CD175 ON resultats_quiz (quiz_id)');
+        $this->addSql('CREATE INDEX IDX_C596EA16EA417747 ON resultats_quiz (invite_id)');
+        $this->addSql('CREATE UNIQUE INDEX uq_quiz_invite ON resultats_quiz (quiz_id, invite_id)');
+        $this->addSql('COMMENT ON COLUMN resultats_quiz.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN resultats_quiz.quiz_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN resultats_quiz.invite_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE scans_qr (id UUID NOT NULL, invite_id UUID NOT NULL, organisateur_id UUID NOT NULL, type_scan VARCHAR(15) NOT NULL, heure_scan TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, localisation VARCHAR(255) DEFAULT NULL, commentaire TEXT DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_8E4C34E9D936B2FA ON scans_qr (organisateur_id)');
+        $this->addSql('CREATE INDEX idx_scans_qr_invite_id ON scans_qr (invite_id)');
+        $this->addSql('COMMENT ON COLUMN scans_qr.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN scans_qr.invite_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN scans_qr.organisateur_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE sondages (id UUID NOT NULL, couple_id UUID NOT NULL, titre VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, type_sondage VARCHAR(15) NOT NULL, options_json jsonb, date_debut TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, date_fin TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, actif BOOLEAN NOT NULL, ordre_affichage INT DEFAULT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_7BCB3816F66468CA ON sondages (couple_id)');
+        $this->addSql('CREATE INDEX idx_sondages_options_gin ON sondages USING gin (options_json jsonb_ops)');
+        $this->addSql('COMMENT ON COLUMN sondages.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN sondages.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE statistiques_presence (id UUID NOT NULL, couple_id UUID NOT NULL, date_statistique DATE NOT NULL, total_invites INT DEFAULT NULL, confirmes_rsvp INT DEFAULT NULL, presents_ceremonie INT DEFAULT NULL, presents_reception INT DEFAULT NULL, taux_presence NUMERIC(5, 2) DEFAULT NULL, heure_pic_arrivee TIME(0) WITHOUT TIME ZONE DEFAULT NULL, derniere_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_E1C80E17F66468CA ON statistiques_presence (couple_id)');
+        $this->addSql('COMMENT ON COLUMN statistiques_presence.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN statistiques_presence.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('CREATE TABLE themes_configuration (id UUID NOT NULL, couple_id UUID NOT NULL, section VARCHAR(100) NOT NULL, configuration_json JSON DEFAULT NULL, actif BOOLEAN NOT NULL, date_creation TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, date_mise_ajour TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_18D8D84F66468CA ON themes_configuration (couple_id)');
+        $this->addSql('COMMENT ON COLUMN themes_configuration.id IS \'(DC2Type:uuid)\'');
+        $this->addSql('COMMENT ON COLUMN themes_configuration.couple_id IS \'(DC2Type:uuid)\'');
+        $this->addSql('ALTER TABLE blog_posts ADD CONSTRAINT FK_78B2F932F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE cagnottes ADD CONSTRAINT FK_9E08BD14F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE contributions_cadeaux ADD CONSTRAINT FK_3DFC1573EA417747 FOREIGN KEY (invite_id) REFERENCES invites (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE contributions_cadeaux ADD CONSTRAINT FK_3DFC1573D9D5ED84 FOREIGN KEY (cadeau_id) REFERENCES liste_cadeaux (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE contributions_cadeaux ADD CONSTRAINT FK_3DFC157315105EB8 FOREIGN KEY (cagnotte_id) REFERENCES cagnottes (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE faq ADD CONSTRAINT FK_E8FF75CCF66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE galeries ADD CONSTRAINT FK_EB9F215AF66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE histoire_couple ADD CONSTRAINT FK_4C02D557F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE invites ADD CONSTRAINT FK_37E6A6CF66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE liste_cadeaux ADD CONSTRAINT FK_7069CEBEF66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE livre_or ADD CONSTRAINT FK_9557371CF66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE livre_or ADD CONSTRAINT FK_9557371CEA417747 FOREIGN KEY (invite_id) REFERENCES invites (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE logs_activite ADD CONSTRAINT FK_D5D66FA5F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE medias ADD CONSTRAINT FK_12D2AF81825396CB FOREIGN KEY (galerie_id) REFERENCES galeries (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE medias ADD CONSTRAINT FK_12D2AF81EA417747 FOREIGN KEY (invite_id) REFERENCES invites (id) ON DELETE SET NULL NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE messages_prives ADD CONSTRAINT FK_3944A654F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE messages_prives ADD CONSTRAINT FK_3944A65410335F61 FOREIGN KEY (expediteur_id) REFERENCES invites (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE notifications ADD CONSTRAINT FK_6000B0D3F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE notifications ADD CONSTRAINT FK_6000B0D3EA417747 FOREIGN KEY (invite_id) REFERENCES invites (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE organisateurs ADD CONSTRAINT FK_6AF49DEFF66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE playlist_suggestions ADD CONSTRAINT FK_B47B003BF66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE playlist_suggestions ADD CONSTRAINT FK_B47B003BEA417747 FOREIGN KEY (invite_id) REFERENCES invites (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE programme ADD CONSTRAINT FK_3DDCB9FFF66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE quiz ADD CONSTRAINT FK_A412FA92F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE reponses_sondages ADD CONSTRAINT FK_CE54F638BAF4AE56 FOREIGN KEY (sondage_id) REFERENCES sondages (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE reponses_sondages ADD CONSTRAINT FK_CE54F638EA417747 FOREIGN KEY (invite_id) REFERENCES invites (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE resultats_quiz ADD CONSTRAINT FK_C596EA16853CD175 FOREIGN KEY (quiz_id) REFERENCES quiz (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE resultats_quiz ADD CONSTRAINT FK_C596EA16EA417747 FOREIGN KEY (invite_id) REFERENCES invites (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE scans_qr ADD CONSTRAINT FK_8E4C34E9EA417747 FOREIGN KEY (invite_id) REFERENCES invites (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE scans_qr ADD CONSTRAINT FK_8E4C34E9D936B2FA FOREIGN KEY (organisateur_id) REFERENCES organisateurs (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE sondages ADD CONSTRAINT FK_7BCB3816F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE statistiques_presence ADD CONSTRAINT FK_E1C80E17F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE themes_configuration ADD CONSTRAINT FK_18D8D84F66468CA FOREIGN KEY (couple_id) REFERENCES couples (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+    }
+
+    public function down(Schema $schema): void
+    {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('CREATE SCHEMA public');
+        $this->addSql('ALTER TABLE blog_posts DROP CONSTRAINT FK_78B2F932F66468CA');
+        $this->addSql('ALTER TABLE cagnottes DROP CONSTRAINT FK_9E08BD14F66468CA');
+        $this->addSql('ALTER TABLE contributions_cadeaux DROP CONSTRAINT FK_3DFC1573EA417747');
+        $this->addSql('ALTER TABLE contributions_cadeaux DROP CONSTRAINT FK_3DFC1573D9D5ED84');
+        $this->addSql('ALTER TABLE contributions_cadeaux DROP CONSTRAINT FK_3DFC157315105EB8');
+        $this->addSql('ALTER TABLE faq DROP CONSTRAINT FK_E8FF75CCF66468CA');
+        $this->addSql('ALTER TABLE galeries DROP CONSTRAINT FK_EB9F215AF66468CA');
+        $this->addSql('ALTER TABLE histoire_couple DROP CONSTRAINT FK_4C02D557F66468CA');
+        $this->addSql('ALTER TABLE invites DROP CONSTRAINT FK_37E6A6CF66468CA');
+        $this->addSql('ALTER TABLE liste_cadeaux DROP CONSTRAINT FK_7069CEBEF66468CA');
+        $this->addSql('ALTER TABLE livre_or DROP CONSTRAINT FK_9557371CF66468CA');
+        $this->addSql('ALTER TABLE livre_or DROP CONSTRAINT FK_9557371CEA417747');
+        $this->addSql('ALTER TABLE logs_activite DROP CONSTRAINT FK_D5D66FA5F66468CA');
+        $this->addSql('ALTER TABLE medias DROP CONSTRAINT FK_12D2AF81825396CB');
+        $this->addSql('ALTER TABLE medias DROP CONSTRAINT FK_12D2AF81EA417747');
+        $this->addSql('ALTER TABLE messages_prives DROP CONSTRAINT FK_3944A654F66468CA');
+        $this->addSql('ALTER TABLE messages_prives DROP CONSTRAINT FK_3944A65410335F61');
+        $this->addSql('ALTER TABLE notifications DROP CONSTRAINT FK_6000B0D3F66468CA');
+        $this->addSql('ALTER TABLE notifications DROP CONSTRAINT FK_6000B0D3EA417747');
+        $this->addSql('ALTER TABLE organisateurs DROP CONSTRAINT FK_6AF49DEFF66468CA');
+        $this->addSql('ALTER TABLE playlist_suggestions DROP CONSTRAINT FK_B47B003BF66468CA');
+        $this->addSql('ALTER TABLE playlist_suggestions DROP CONSTRAINT FK_B47B003BEA417747');
+        $this->addSql('ALTER TABLE programme DROP CONSTRAINT FK_3DDCB9FFF66468CA');
+        $this->addSql('ALTER TABLE quiz DROP CONSTRAINT FK_A412FA92F66468CA');
+        $this->addSql('ALTER TABLE reponses_sondages DROP CONSTRAINT FK_CE54F638BAF4AE56');
+        $this->addSql('ALTER TABLE reponses_sondages DROP CONSTRAINT FK_CE54F638EA417747');
+        $this->addSql('ALTER TABLE resultats_quiz DROP CONSTRAINT FK_C596EA16853CD175');
+        $this->addSql('ALTER TABLE resultats_quiz DROP CONSTRAINT FK_C596EA16EA417747');
+        $this->addSql('ALTER TABLE scans_qr DROP CONSTRAINT FK_8E4C34E9EA417747');
+        $this->addSql('ALTER TABLE scans_qr DROP CONSTRAINT FK_8E4C34E9D936B2FA');
+        $this->addSql('ALTER TABLE sondages DROP CONSTRAINT FK_7BCB3816F66468CA');
+        $this->addSql('ALTER TABLE statistiques_presence DROP CONSTRAINT FK_E1C80E17F66468CA');
+        $this->addSql('ALTER TABLE themes_configuration DROP CONSTRAINT FK_18D8D84F66468CA');
+        $this->addSql('DROP TABLE blog_posts');
+        $this->addSql('DROP TABLE cagnottes');
+        $this->addSql('DROP TABLE contributions_cadeaux');
+        $this->addSql('DROP TABLE couples');
+        $this->addSql('DROP TABLE faq');
+        $this->addSql('DROP TABLE galeries');
+        $this->addSql('DROP TABLE histoire_couple');
+        $this->addSql('DROP TABLE invites');
+        $this->addSql('DROP TABLE liste_cadeaux');
+        $this->addSql('DROP TABLE livre_or');
+        $this->addSql('DROP TABLE logs_activite');
+        $this->addSql('DROP TABLE medias');
+        $this->addSql('DROP TABLE messages_prives');
+        $this->addSql('DROP TABLE notifications');
+        $this->addSql('DROP TABLE organisateurs');
+        $this->addSql('DROP TABLE playlist_suggestions');
+        $this->addSql('DROP TABLE programme');
+        $this->addSql('DROP TABLE quiz');
+        $this->addSql('DROP TABLE reponses_sondages');
+        $this->addSql('DROP TABLE resultats_quiz');
+        $this->addSql('DROP TABLE scans_qr');
+        $this->addSql('DROP TABLE sondages');
+        $this->addSql('DROP TABLE statistiques_presence');
+        $this->addSql('DROP TABLE themes_configuration');
+    }
+}

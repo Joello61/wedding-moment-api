@@ -89,7 +89,7 @@ class Couple implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::STRING, length: 10, enumType: StatutCouple::class)]
     private StatutCouple $statut = StatutCouple::ACTIF;
 
-    #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[ORM\Column(type: Types::JSON, nullable: true, columnDefinition: "jsonb")]
     private ?array $modulesActifs = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

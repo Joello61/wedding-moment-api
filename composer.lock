@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "febce3a0871184294e64b87c919bc34b",
+    "content-hash": "31cd7bdb7defd19aad5608a961821c10",
     "packages": [
         {
             "name": "api-platform/doctrine-common",
@@ -2471,6 +2471,50 @@
                 "source": "https://github.com/nelmio/NelmioCorsBundle/tree/2.5.0"
             },
             "time": "2024-06-24T21:25:28+00:00"
+        },
+        {
+            "name": "opensoft/doctrine-postgres-types",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/opensoft/doctrine-postgres-types.git",
+                "reference": "bad02e696572756a148d9afa395167096b097845"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/opensoft/doctrine-postgres-types/zipball/bad02e696572756a148d9afa395167096b097845",
+                "reference": "bad02e696572756a148d9afa395167096b097845",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "doctrine/dbal": "*",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\DBAL\\PostgresTypes\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Richard Fullmer",
+                    "email": "richard.fullmer@opensoftdev.com"
+                }
+            ],
+            "description": "Provide some common postgres types for doctrine",
+            "support": {
+                "issues": "https://github.com/opensoft/doctrine-postgres-types/issues",
+                "source": "https://github.com/opensoft/doctrine-postgres-types/tree/master"
+            },
+            "time": "2015-10-02T04:18:11+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
