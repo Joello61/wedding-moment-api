@@ -61,4 +61,80 @@ class StatistiquePresence
     public function getId(): ?Uuid { return $this->id; }
     public function getCouple(): ?Couple { return $this->couple; }
     public function setCouple(?Couple $couple): static { $this->couple = $couple; return $this; }
+
+    public function getDateStatistique(): ?\DateTimeInterface { return $this->dateStatistique; }
+    public function setDateStatistique(\DateTimeInterface $dateStatistique): static { $this->dateStatistique = $dateStatistique; return $this; }
+
+    public function getTotalInvites(): ?int
+    {
+        return $this->totalInvites;
+    }
+
+    public function setTotalInvites(?int $totalInvites): void
+    {
+        $this->totalInvites = $totalInvites;
+    }
+
+    public function getConfirmesRsvp(): ?int
+    {
+        return $this->confirmesRsvp;
+    }
+
+    public function setConfirmesRsvp(?int $confirmesRsvp): void
+    {
+        $this->confirmesRsvp = $confirmesRsvp;
+    }
+
+    public function getPresentsCeremonie(): ?int
+    {
+        return $this->presentsCeremonie;
+    }
+
+    public function setPresentsCeremonie(?int $presentsCeremonie): void
+    {
+        $this->presentsCeremonie = $presentsCeremonie;
+    }
+
+    public function getPresentsReception(): ?int
+    {
+        return $this->presentsReception;
+    }
+
+    public function setPresentsReception(?int $presentsReception): void
+    {
+        $this->presentsReception = $presentsReception;
+    }
+
+    public function getTauxPresence(): ?string
+    {
+        return $this->tauxPresence;
+    }
+
+    public function setTauxPresence(?string $tauxPresence): void
+    {
+        $this->tauxPresence = $tauxPresence;
+    }
+
+    public function getHeurePicArrivee(): ?\DateTimeInterface
+    {
+        return $this->heurePicArrivee;
+    }
+
+    public function setHeurePicArrivee(?\DateTimeInterface $heurePicArrivee): void
+    {
+        $this->heurePicArrivee = $heurePicArrivee;
+    }
+
+    public function getDerniereMiseAJour(): \DateTimeInterface
+    {
+        return $this->derniereMiseAJour;
+    }
+
+    public function setDerniereMiseAJour(\DateTimeInterface $derniereMiseAJour): void
+    {
+        $this->derniereMiseAJour = $derniereMiseAJour;
+    }
+
+
+
 }

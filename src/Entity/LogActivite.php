@@ -59,4 +59,45 @@ class LogActivite
     public function setUtilisateurId(?Uuid $utilisateurId): static { $this->utilisateurId = $utilisateurId; return $this; }
     public function getTypeUtilisateur(): ?TypeUtilisateur { return $this->typeUtilisateur; }
     public function setTypeUtilisateur(?TypeUtilisateur $typeUtilisateur): static { $this->typeUtilisateur = $typeUtilisateur; return $this; }
+
+    public function getAction(): ?string
+    {
+        return $this->action;
+    }
+
+    public function setAction(?string $action): void
+    {
+        $this->action = $action;
+    }
+
+    public function getDetailsJson(): ?array
+    {
+        return $this->detailsJson;
+    }
+
+    public function setDetailsJson(?array $detailsJson): void
+    {
+        $this->detailsJson = $detailsJson;
+    }
+
+    public function getAdresseIp(): ?string
+    {
+        return $this->adresseIp;
+    }
+
+    public function setAdresseIp(?string $adresseIp): void
+    {
+        $this->adresseIp = $adresseIp;
+    }
+
+    public function getUserAgent(): ?string
+    {
+        return $this->userAgent;
+    }
+
+    public function setUserAgent(?string $userAgent): void
+    {
+        $this->userAgent = $userAgent;
+    }
+
 }

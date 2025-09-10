@@ -63,4 +63,56 @@ class Notification
     public function setTypeNotification(TypeNotification $typeNotification): static { $this->typeNotification = $typeNotification; return $this; }
     public function isLu(): bool { return $this->lu; }
     public function setLu(bool $lu): static { $this->lu = $lu; return $this; }
+
+    public function getCouple(): ?Couple
+    {
+        return $this->couple;
+    }
+
+    public function setCouple(?Couple $couple): void
+    {
+        $this->couple = $couple;
+    }
+
+    public function getInvite(): ?Invite
+    {
+        return $this->invite;
+    }
+
+    public function setInvite(?Invite $invite): void
+    {
+        $this->invite = $invite;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): void
+    {
+        $this->titre = $titre;
+    }
+
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
+
+    public function setContenu(?string $contenu): void
+    {
+        $this->contenu = $contenu;
+    }
+
+    public function getLienAction(): ?string
+    {
+        return $this->lienAction;
+    }
+
+    public function setLienAction(?string $lienAction): void
+    {
+        $this->lienAction = $lienAction;
+    }
+
+
 }

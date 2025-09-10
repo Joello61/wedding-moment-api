@@ -74,6 +74,46 @@ class Sondage
     public function getTypeSondage(): TypeSondage { return $this->typeSondage; }
     public function setTypeSondage(TypeSondage $typeSondage): static { $this->typeSondage = $typeSondage; return $this; }
 
+    public function getOptionsJson(): ?array { return $this->optionsJson; }
+    public function setOptionsJson(?array $optionsJson): static { $this->optionsJson = $optionsJson; return $this; }
+
+    public function getActif(): bool { return $this->actif; }
+    public function setActif(bool $actif): static { $this->actif = $actif; return $this; }
+
+    public function getOrdreAffichage(): ?int { return $this->ordreAffichage; }
+
+    public function getCouple(): ?Couple
+    {
+        return $this->couple;
+    }
+
+    public function setCouple(?Couple $couple): void
+    {
+        $this->couple = $couple;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): void
+    {
+        $this->titre = $titre;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+
+
     #[ORM\PreUpdate]
     public function updateTimestamps(): void
     {

@@ -44,4 +44,9 @@ class ReponseSondage
     public function setSondage(?Sondage $sondage): static { $this->sondage = $sondage; return $this; }
     public function getInvite(): ?Invite { return $this->invite; }
     public function setInvite(?Invite $invite): static { $this->invite = $invite; return $this; }
+
+    public function getReponse(): ?string { return $this->reponse; }
+    public function setReponse(?string $reponse): static { $this->reponse = $reponse; return $this; }
+    public function getDateReponse(): \DateTimeInterface { return $this->dateReponse; }
+    public function setDateReponse(\DateTimeInterface $dateReponse): static { $this->dateReponse = $dateReponse; return $this; }
 }

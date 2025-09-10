@@ -65,4 +65,66 @@ class Quiz
     {
         $this->dateMiseAJour = new \DateTime();
     }
+
+    public function getCouple(): ?Couple
+    {
+        return $this->couple;
+    }
+
+    public function setCouple(?Couple $couple): void
+    {
+        $this->couple = $couple;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): void
+    {
+        $this->titre = $titre;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getQuestionsJson(): ?array
+    {
+        return $this->questionsJson;
+    }
+
+    public function setQuestionsJson(?array $questionsJson): void
+    {
+        $this->questionsJson = $questionsJson;
+    }
+
+    public function isActif(): bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): void
+    {
+        $this->actif = $actif;
+    }
+
+    public function getResultats(): Collection
+    {
+        return $this->resultats;
+    }
+
+    public function setResultats(Collection $resultats): void
+    {
+        $this->resultats = $resultats;
+    }
+
+
 }

@@ -136,6 +136,29 @@ class Invite
     public function getId(): ?Uuid { return $this->id; }
     public function getCouple(): ?Couple { return $this->couple; }
     public function setCouple(?Couple $couple): static { $this->couple = $couple; return $this; }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): void
+    {
+        $this->telephone = $telephone;
+    }
+
+
+
     public function getNom(): ?string { return $this->nom; }
     public function setNom(string $nom): static { $this->nom = $nom; return $this; }
     public function getPrenom(): ?string { return $this->prenom; }

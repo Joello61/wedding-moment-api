@@ -52,6 +52,28 @@ class ThemeConfiguration
     public function getSection(): ?string { return $this->section; }
     public function setSection(string $section): static { $this->section = $section; return $this; }
 
+    public function getConfigurationJson(): ?array
+    {
+        return $this->configurationJson;
+    }
+
+    public function setConfigurationJson(?array $configurationJson): void
+    {
+        $this->configurationJson = $configurationJson;
+    }
+
+    public function isActif(): bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): void
+    {
+        $this->actif = $actif;
+    }
+
+
+
     #[ORM\PreUpdate]
     public function updateTimestamps(): void
     {

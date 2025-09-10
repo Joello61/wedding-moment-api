@@ -55,6 +55,60 @@ class Faq
     // Getters et Setters
     public function getId(): ?Uuid { return $this->id; }
 
+    public function getCouple(): ?Couple { return $this->couple; }
+    public function setCouple(?Couple $couple): static { $this->couple = $couple; return $this; }
+
+    public function getQuestion(): ?string
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(?string $question): void
+    {
+        $this->question = $question;
+    }
+
+    public function getReponse(): ?string
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(?string $reponse): void
+    {
+        $this->reponse = $reponse;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?string $categorie): void
+    {
+        $this->categorie = $categorie;
+    }
+
+    public function getOrdreAffichage(): ?int
+    {
+        return $this->ordreAffichage;
+    }
+
+    public function setOrdreAffichage(?int $ordreAffichage): void
+    {
+        $this->ordreAffichage = $ordreAffichage;
+    }
+
+    public function isActif(): bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): void
+    {
+        $this->actif = $actif;
+    }
+
+
     #[ORM\PreUpdate]
     public function updateTimestamps(): void
     {
