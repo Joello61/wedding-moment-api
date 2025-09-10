@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ThemeConfiguration;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Exception\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Exception as DBALException;
 
@@ -208,6 +209,7 @@ class ThemeConfigurationRepository extends ServiceEntityRepository
     /**
      * Clone une configuration existante pour un nouveau couple.
      * Utile pour les templates ou configurations par défaut.
+     * @throws ORMException
      */
     public function cloneConfiguration(int $sourceId, int $targetCoupleId): ?ThemeConfiguration
     {
